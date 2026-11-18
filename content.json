@@ -1,0 +1,45 @@
+{
+  "site": {
+    "name": "German with Neeraj",
+    "tagline": "Learn German by skill and level, and find your way to a German public university.",
+    "youtube": "https://www.youtube.com/@German_with_neeraj",
+    "email": "YOUR-EMAIL@example.com"
+  },
+  "practice": [
+    {"skill":"lesen","level":"A1","title":"Meet Mia","text":["Hallo! Ich heiße Mia. Ich bin 20 Jahre alt und wohne in Weiden. Ich studiere Informatik. Am Wochenende spiele ich Fußball."],"questions":["Wie alt ist Mia?","Wo wohnt Mia?","Was macht Mia am Wochenende?"],"answers":["20 Jahre alt.","In Weiden.","Sie spielt Fußball."]},
+    {"skill":"lesen","level":"A2","title":"A day at the university","text":["Heute habe ich um 8 Uhr Vorlesung. Danach esse ich mit Freunden in der Mensa. Am Nachmittag lerne ich in der Bibliothek."],"questions":["Wann beginnt die Vorlesung?","Wo isst die Person?"],"answers":["Um 8 Uhr.","In der Mensa."]},
+    {"skill":"hoeren","level":"A1","title":"Introducing yourself (sample)","video":"","audio":"","text":["Transcript: Guten Tag, mein Name ist Ali. Ich komme aus Indien. Ich lerne Deutsch."],"questions":["Woher kommt Ali?"],"answers":["Aus Indien."]},
+    {"skill":"sprechen","level":"A1","title":"Introduce yourself","text":["Prompt: Sagen Sie Ihren Namen, Ihr Land, Ihr Alter und Ihr Hobby.","Useful phrases: Ich heiße ... / Ich komme aus ... / Ich bin ... Jahre alt. / Mein Hobby ist ..."],"questions":[],"answers":[]},
+    {"skill":"schreiben","level":"A1","title":"Invitation email","text":["Task: Write an email to a friend. Invite him to your birthday party. Say when and where it is.","Checklist: greeting, date and place, closing."],"questions":[],"answers":["Model: Lieber Tom, ich habe am Samstag Geburtstag. Die Party ist um 18 Uhr bei mir zu Hause. Kommst du? Viele Grüße, Neeraj"]}
+  ],
+  "study": {
+    "intro": "A practical path to a German public university. Always confirm requirements, deadlines and fees on the official websites, because they change.",
+    "steps": [
+      "Choose your programme and check its language and subject requirements.",
+      "Check how your degree is recognised and which documents the university needs.",
+      "Prepare your documents: certificates, transcripts, language proof, CV, motivation letter.",
+      "Apply through the university portal or uni-assist, before the deadline.",
+      "After admission: visa, blocked account, health insurance and housing."
+    ],
+    "links": [
+      {"label":"DAAD: Study in Germany","url":"https://www.daad.de/en/"},
+      {"label":"uni-assist","url":"https://www.uni-assist.de/en/"}
+    ],
+    "services": [
+      {"title":"Consultation","text":"A call to review your profile, programme options and next steps."},
+      {"title":"Motivation letter","text":"Writing or reviewing your motivation letter."},
+      {"title":"Full application support","text":"Help with the whole application, from documents to submission."}
+    ]
+  },
+  "data": {
+    "done": 0,
+    "total": 120,
+    "intro": "I am following a 120-day data analyst roadmap: Excel, statistics, SQL, Power BI/Tableau, Python, cloud and portfolio projects.",
+    "log": [{"date":"Week 1","text":"Starting with Excel fundamentals."}],
+    "projects": []
+  },
+  "blog": [
+    {"slug":"welcome","title":"Welcome to German with Neeraj","date":"2026-11-18","tag":"Life in Germany","body":["This is the first post. Edit content.json to change it or add new ones."]}
+  ],
+  "videos": []
+}

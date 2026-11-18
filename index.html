@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>German with Neeraj</title>
+<style>
+:root{--ink:#14213d;--mut:#556070;--bg:#f6f8fb;--card:#fff;--line:#d9e0ea;--teal:#0f766e;--gold:#f2b705}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0 0 .5em}
+h1{font-size:2.4rem}h2{font-size:1.6rem}h3{font-size:1.15rem}
+a{color:var(--teal)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+header,footer,main{max-width:900px;margin:0 auto;padding:16px 20px}
+header{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;border-bottom:1px solid var(--line)}
+header b{font-family:Georgia,serif;font-size:1.2rem;margin-right:auto}
+nav{display:flex;flex-wrap:wrap;gap:4px 14px}
+nav a{text-decoration:none;color:var(--ink);padding:2px 0}
+nav a.on{border-bottom:2px solid var(--gold);font-weight:600}
+main{min-height:60vh;padding-top:28px}
+.lead{font-size:1.15rem;color:var(--mut);max-width:60ch}
+.ladder{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:24px 0}
+.skill{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px}
+.skill h3 a{text-decoration:none;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px}
+.chip{padding:3px 12px;border:1px solid var(--ink);border-radius:20px;text-decoration:none;color:var(--ink);font-size:.9rem}
+.chip.on{background:var(--ink);color:#fff}
+.btn{display:inline-block;background:var(--teal);color:#fff;padding:8px 18px;border-radius:6px;text-decoration:none;margin:4px 8px 4px 0}
+.btn.alt{background:var(--gold);color:var(--ink)}
+details{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:10px 0}
+summary{cursor:pointer;font-weight:600}
+.box{background:var(--card);border-left:4px solid var(--gold);padding:12px 16px;margin:18px 0}
+.bar{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin:8px 0;max-width:420px}
+.bar i{display:block;height:100%;background:var(--teal)}
+.muted{color:var(--mut);font-size:.9rem}
+iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:8px;margin:8px 0}
+footer{border-top:1px solid var(--line);font-size:.9rem;color:var(--mut)}
+@media(max-width:560px){h1{font-size:1.9rem}}
+</style>
+</head>
+<body>
+<header><b id="brand">German with Neeraj</b><nav id="nav"></nav></header>
+<main id="app">Loading...</main>
+<footer id="foot"></footer>
+<script>
+const h=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a))x==='class'?e.className=v:e.setAttribute(x,v);k.flat().forEach(c=>e.append(c&&c.nodeType?c:document.createTextNode(c??'')));return e};
+const SK={lesen:['Lesen','Reading'],hoeren:['Hören','Listening'],sprechen:['Sprechen','Speaking'],schreiben:['Schreiben','Writing']};
+const LV=['A1','A2','B1','B2'];
+let C;
+const lnk=(href,txt,cls)=>h('a',{href,class:cls||''},txt);
+const paras=a=>(a||[]).map(t=>h('p',{},t));
+
+function home(){
+  return [h('h1',{},C.site.name),h('p',{class:'lead'},C.site.tagline),
+    h('div',{class:'ladder'},Object.entries(SK).map(([k,[de,en]])=>
+      h('div',{class:'skill'},h('h3',{},lnk('#/'+k,de)),h('div',{class:'muted'},en),
+        h('div',{class:'chips'},LV.map(l=>lnk('#/'+k+'/'+l.toLowerCase(),l,'chip')))))),
+    lnk(C.site.youtube,'Watch on YouTube','btn'),lnk('#/study','Study in Germany','btn alt'),
+    h('h2',{style:'margin-top:32px'},'Latest posts'),
+    ...C.blog.slice(0,3).map(p=>h('p',{},lnk('#/blog/'+p.slug,p.title),' ',h('span',{class:'muted'},p.date)))];
+}
+function skill(k,lv){
+  const [de,en]=SK[k];lv=(lv||'a1').toUpperCase();
+  const sets=C.practice.filter(s=>s.skill===k&&s.level===lv);
+  return [h('h1',{},de),h('p',{class:'lead'},en+' practice by level'),
+    h('div',{class:'chips'},LV.map(l=>lnk('#/'+k+'/'+l.toLowerCase(),l,'chip'+(l===lv?' on':'')))),
+    !sets.length?h('p',{},'No practice sets for '+lv+' yet. Add them in content.json.'):
+    sets.map(s=>h('details',{},h('summary',{},s.title),
+      s.video?h('iframe',{src:'https://www.youtube-nocookie.com/embed/'+s.video,title:s.title,loading:'lazy',allowfullscreen:''}):'',
+      s.audio?h('audio',{controls:'',src:s.audio}):'',
+      paras(s.text),
+      s.questions&&s.questions.length?h('ol',{},s.questions.map(q=>h('li',{},q))):'',
+      s.answers&&s.answers.length?h('details',{},h('summary',{},'Show solution'),h('ol',{},s.answers.map(a=>h('li',{},a)))):''))];
+}
+function study(){const s=C.study;
+  return [h('h1',{},'Study in Germany'),h('p',{class:'lead'},s.intro),
+    h('h2',{},'Steps'),h('ol',{},s.steps.map(x=>h('li',{},x))),
+    h('h2',{},'Official sources'),h('ul',{},s.links.map(l=>h('li',{},lnk(l.url,l.label)))),
+    h('h2',{},'Paid services'),
+    h('p',{},'These services are paid. Prices are agreed by email. There is no payment on this website, and admission cannot be guaranteed.'),
+    h('ul',{},s.services.map(x=>h('li',{},h('b',{},x.title+': '),x.text))),
+    lnk('#/contact','Contact me about services','btn')];
+}
+function data(){const d=C.data,p=d.total?Math.round(100*d.done/d.total):0;
+  return [h('h1',{},'Data Analyst Journey'),h('p',{class:'lead'},d.intro),
+    h('div',{class:'bar',role:'progressbar','aria-valuenow':p,'aria-valuemin':0,'aria-valuemax':100},h('i',{style:'width:'+p+'%'})),
+    h('p',{class:'muted'},d.done+' of '+d.total+' study days done ('+p+'%)'),
+    h('h2',{},'Log'),d.log.map(l=>h('p',{},h('b',{},l.date+': '),l.text)),
+    h('h2',{},'Projects'),d.projects.length?h('ul',{},d.projects.map(x=>h('li',{},lnk(x.url,x.title),' ',x.text||''))):h('p',{class:'muted'},'Projects will appear here.')];
+}
+function blog(slug){
+  if(slug){const p=C.blog.find(x=>x.slug===slug);
+    if(p)return [lnk('#/blog','All posts'),h('h1',{},p.title),h('p',{class:'muted'},p.date+' | '+p.tag),paras(p.body)];}
+  return [h('h1',{},'Blog'),C.blog.map(p=>h('div',{class:'box'},h('h3',{},lnk('#/blog/'+p.slug,p.title)),h('div',{class:'muted'},p.date+' | '+p.tag)))];
+}
+function yt(){return [h('h1',{},'YouTube'),h('p',{class:'lead'},'Videos by skill and level on the channel.'),lnk(C.site.youtube,'Open the channel','btn'),
+  ...C.videos.map(v=>h('div',{},h('h3',{},v.title),h('iframe',{src:'https://www.youtube-nocookie.com/embed/'+v.id,title:v.title,loading:'lazy',allowfullscreen:''})))];}
+function contact(){return [h('h1',{},'Contact'),h('p',{},'Questions about the practice pages, the admission guide or the paid services? Send me an email.'),
+  lnk('mailto:'+C.site.email,C.site.email,'btn')];}
+function privacy(){return [h('h1',{},'Privacy policy (Datenschutz)'),
+  h('p',{class:'box'},'Template: replace the [brackets], then have it checked before you publish.'),
+  h('h3',{},'Who is responsible'),h('p',{},'[Your full name, address, email]'),
+  h('h3',{},'Hosting'),h('p',{},'This site is hosted on GitHub Pages. The host may process technical data such as your IP address in server logs. See GitHub\'s privacy statement.'),
+  h('h3',{},'YouTube videos'),h('p',{},'Some pages embed YouTube videos using the privacy-enhanced mode (youtube-nocookie.com). Data is sent to YouTube when you play a video.'),
+  h('h3',{},'Contact by email'),h('p',{},'If you email me, I use your message and address only to reply and delete them when no longer needed. [State retention period.]'),
+  h('h3',{},'Cookies and analytics'),h('p',{},'This site does not set cookies and has no analytics. [Update if you add any.]'),
+  h('h3',{},'Your rights'),h('p',{},'You have the right to access, correct, delete and restrict your data, to object, and to complain to a data protection authority.')];}
+function impressum(){return [h('h1',{},'Impressum'),
+  h('p',{class:'box'},'Template: fill in your details and confirm with the right office what applies to you.'),
+  h('p',{},'[Full name]'),h('p',{},'[Street, postcode, city, Germany]'),h('p',{},'Email: '+C.site.email)];}
+
+function route(){
+  const [p,a,b]=(location.hash.replace(/^#\/?/,'')||'').split('/');
+  const app=document.getElementById('app');app.replaceChildren();
+  let out;
+  if(SK[p])out=skill(p,a);else if(p==='study')out=study();else if(p==='data')out=data();
+  else if(p==='blog')out=blog(a);else if(p==='youtube')out=yt();else if(p==='contact')out=contact();
+  else if(p==='privacy')out=privacy();else if(p==='impressum')out=impressum();else out=home();
+  [out].flat(3).forEach(x=>app.append(x));
+  document.querySelectorAll('#nav a').forEach(n=>n.classList.toggle('on',n.getAttribute('href')==='#/'+(p||'')));
+  window.scrollTo(0,0);
+}
+fetch('content.json').then(r=>r.json()).then(j=>{C=j;
+  document.getElementById('brand').textContent=C.site.name;document.title=C.site.name;
+  const items=[['#/','Home'],...Object.entries(SK).map(([k,v])=>['#/'+k,v[0]]),['#/study','Study in Germany'],['#/data','Data Journey'],['#/blog','Blog'],['#/youtube','YouTube'],['#/contact','Contact']];
+  document.getElementById('nav').append(...items.map(([u,t])=>lnk(u,t)));
+  document.getElementById('foot').append('© '+C.site.name+' | ',lnk('#/privacy','Privacy'),' | ',lnk('#/impressum','Impressum'));
+  window.addEventListener('hashchange',route);route();
+}).catch(()=>{document.getElementById('app').textContent='Could not load content.json. Open the site through GitHub Pages or a local server.'});
+</script>
+</body>
+</html>
